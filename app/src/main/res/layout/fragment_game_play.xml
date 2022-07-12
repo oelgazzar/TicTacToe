@@ -17,6 +17,28 @@
         android:layout_height="match_parent"
         tools:context=".MainActivity">
 
+        <TextView
+            android:id="@+id/player1_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{@string/player1_score_text(viewModel.p1Score)}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            tools:text="Player1: 10"/>
+
+        <TextView
+            android:id="@+id/player2_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{@string/player2_score_text(viewModel.p2Score)}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="16dp"
+            tools:text="Player2: 5"/>
+
         <com.example.tictactoe.ui.BoardView
             android:id="@+id/boardView"
             android:layout_width="wrap_content"
@@ -36,6 +58,27 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/boardView"
             android:onClick="@{(view) -> gamePlayFragment.resetGame()}" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="@+id/player1_text"
+            app:layout_constraintStart_toStartOf="@+id/player1_text"
+            app:layout_constraintTop_toBottomOf="@+id/player1_text"
+            app:srcCompat="@drawable/ic_o_small" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="@+id/player2_text"
+            app:layout_constraintStart_toStartOf="@+id/player2_text"
+            app:layout_constraintTop_toBottomOf="@+id/player2_text"
+            app:srcCompat="@drawable/ic_x_small" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

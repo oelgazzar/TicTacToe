@@ -4,21 +4,16 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.drawable.VectorDrawable
-import android.text.method.Touch
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelStore
 import androidx.lifecycle.ViewModelStoreOwner
-import androidx.lifecycle.get
 import com.example.tictactoe.R
 import com.example.tictactoe.models.GameViewModel
-import kotlin.random.Random
 
 class BoardView(context: Context, attrSet: AttributeSet):
     AppCompatImageView(context, attrSet), View.OnTouchListener {
@@ -35,6 +30,7 @@ class BoardView(context: Context, attrSet: AttributeSet):
 
     private val paint = Paint()
     private val viewModel = ViewModelProvider(context as ViewModelStoreOwner).get(GameViewModel::class.java)
+    var onGameEndedListener: OnGameEndedListener? = null
 
     init {
         setOnTouchListener(this)
@@ -143,9 +139,13 @@ class BoardView(context: Context, attrSet: AttributeSet):
         }
 
 //        Toast.makeText(context, "row: $row, col: $col", Toast.LENGTH_SHORT).show()
-        viewModel.updateMatrix(row, col)
+        if (viewModel.updateMatrixAndCheckGameEnd(row, col)) onGameEndedListener?.onGameEnded()
         invalidate()
 
         return true
+    }
+
+    interface OnGameEndedListener {
+        fun onGameEnded()
     }
 }
