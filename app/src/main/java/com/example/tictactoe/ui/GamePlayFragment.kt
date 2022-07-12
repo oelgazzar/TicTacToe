@@ -27,6 +27,10 @@ class GamePlayFragment : Fragment(R.layout.fragment_game_play), BoardView.OnGame
     }
 
     override fun onGameEnded() {
-        Toast.makeText(requireActivity(), "player${viewModel.winner} won", Toast.LENGTH_SHORT).show()
+        val message = when (viewModel.winner) {
+            0 -> "Tie"
+            else -> "player${viewModel.winner} won"
+        }
+        Toast.makeText(requireActivity(), message, Toast.LENGTH_SHORT).show()
     }
 }

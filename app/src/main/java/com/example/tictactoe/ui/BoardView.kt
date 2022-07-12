@@ -10,6 +10,7 @@ import android.view.View
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
 import com.example.tictactoe.R
@@ -34,6 +35,9 @@ class BoardView(context: Context, attrSet: AttributeSet):
 
     init {
         setOnTouchListener(this)
+        viewModel.gameEnded.observe(context as LifecycleOwner) {isGameEnded ->
+            if (isGameEnded) onGameEndedListener?.onGameEnded()
+        }
     }
 
     override fun onDraw(canvas: Canvas) {
@@ -139,7 +143,7 @@ class BoardView(context: Context, attrSet: AttributeSet):
         }
 
 //        Toast.makeText(context, "row: $row, col: $col", Toast.LENGTH_SHORT).show()
-        if (viewModel.updateMatrixAndCheckGameEnd(row, col)) onGameEndedListener?.onGameEnded()
+        viewModel.updateMatrixAndCheckGameEnd(row, col)
         invalidate()
 
         return true
