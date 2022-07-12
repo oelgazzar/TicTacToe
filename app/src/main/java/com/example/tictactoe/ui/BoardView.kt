@@ -10,11 +10,7 @@ import android.view.View
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelStoreOwner
 import com.example.tictactoe.R
-import com.example.tictactoe.models.GameViewModel
 
 class BoardView(context: Context, attrSet: AttributeSet):
     AppCompatImageView(context, attrSet), View.OnTouchListener {
@@ -30,21 +26,22 @@ class BoardView(context: Context, attrSet: AttributeSet):
     }
 
     private val paint = Paint()
-    private val viewModel = ViewModelProvider(context as ViewModelStoreOwner).get(GameViewModel::class.java)
-    var onGameEndedListener: OnGameEndedListener? = null
+    lateinit var matrix: Array<Array<String>>
+
+    var onMoveListener: OnMoveListener? = null
 
     init {
         setOnTouchListener(this)
-        viewModel.gameEnded.observe(context as LifecycleOwner) {isGameEnded ->
-            if (isGameEnded) onGameEndedListener?.onGameEnded()
-        }
+
     }
+
+
 
     override fun onDraw(canvas: Canvas) {
         paint.strokeWidth = LINE_WIDTH
         paint.color = ContextCompat.getColor(context, R.color.gray)
         drawGrid(canvas)
-        drawMatrix(canvas, viewModel.matrix)
+        drawMatrix(canvas)
     }
 
     private fun drawGrid(canvas: Canvas) {
@@ -80,19 +77,19 @@ class BoardView(context: Context, attrSet: AttributeSet):
             paint)
     }
 
-    private fun drawMatrix(canvas: Canvas, matrix: Array<Array<String>>) {
+    private fun drawMatrix(canvas: Canvas) {
         val offsetX = (width - BOARD_WIDTH) / 2
         val offsetY = (height - BOARD_HEIGHT) / 2
 
         for (row in matrix.indices) {
             for (col in matrix.indices) {
-                val sign = matrix[row][col]
-                if (sign.isEmpty()) continue
+                val cell = matrix[row][col]
+                if (cell.isEmpty()) continue
 
                 val x = offsetX + col * (CELL_WIDTH + LINE_WIDTH) + CELL_PADDING
                 val y = offsetY + row * (CELL_HEIGHT + LINE_WIDTH) + CELL_PADDING
 
-                val drawableResId = when(sign) {
+                val drawableResId = when(cell) {
                     "x" -> R.drawable.ic_x
                     else -> R.drawable.ic_o
                 }
@@ -142,14 +139,13 @@ class BoardView(context: Context, attrSet: AttributeSet):
             row = y.toInt() / CELL_HEIGHT
         }
 
-//        Toast.makeText(context, "row: $row, col: $col", Toast.LENGTH_SHORT).show()
-        viewModel.updateMatrixAndCheckGameEnd(row, col)
+        onMoveListener?.onMove(row, col)
         invalidate()
 
         return true
     }
 
-    interface OnGameEndedListener {
-        fun onGameEnded()
+    interface OnMoveListener {
+        fun onMove(row: Int, col: Int)
     }
 }

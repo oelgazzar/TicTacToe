@@ -1,11 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/gamePlayFragment">
+    app:startDestination="@id/gameIntroFragment">
 
     <fragment
         android:id="@+id/gamePlayFragment"
         android:name="com.example.tictactoe.ui.GamePlayFragment"
-        android:label="GamePlayFragment" />
+        android:label="GamePlayFragment" >
+        <action
+            android:id="@+id/action_gamePlayFragment_to_gameEndFragment"
+            app:destination="@id/gameEndFragment"
+            app:enterAnim="@animator/nav_default_pop_enter_anim" />
+        <argument
+            android:name="result_message"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/gameIntroFragment"
+        android:name="com.example.tictactoe.ui.GameIntroFragment"
+        android:label="fragment_game_intro"
+        tools:layout="@layout/fragment_game_intro" >
+        <action
+            android:id="@+id/action_gameIntroFragment_to_gamePlayFragment"
+            app:destination="@id/gamePlayFragment"
+            app:enterAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/gameEndFragment"
+        android:name="com.example.tictactoe.ui.GameEndFragment"
+        android:label="fragment_game_end"
+        tools:layout="@layout/fragment_game_end" />
 </navigation>

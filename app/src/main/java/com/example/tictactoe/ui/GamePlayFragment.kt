@@ -5,11 +5,12 @@ import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.example.tictactoe.R
 import com.example.tictactoe.databinding.FragmentGamePlayBinding
 import com.example.tictactoe.models.GameViewModel
 
-class GamePlayFragment : Fragment(R.layout.fragment_game_play), BoardView.OnGameEndedListener {
+class GamePlayFragment : Fragment(R.layout.fragment_game_play), BoardView.OnMoveListener {
     private val viewModel: GameViewModel by activityViewModels()
     private lateinit var binding: FragmentGamePlayBinding
 
@@ -18,7 +19,10 @@ class GamePlayFragment : Fragment(R.layout.fragment_game_play), BoardView.OnGame
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
         binding.gamePlayFragment = this
-        binding.boardView.onGameEndedListener = this
+        binding.boardView.onMoveListener = this
+        viewModel.isGameRunning.observe(viewLifecycleOwner) { isGameRunning ->
+            if (!isGameRunning) onGameEnded()
+        }
     }
 
     fun resetGame() {
@@ -26,11 +30,18 @@ class GamePlayFragment : Fragment(R.layout.fragment_game_play), BoardView.OnGame
         binding.boardView.invalidate()
     }
 
-    override fun onGameEnded() {
+    private fun onGameEnded() {
         val message = when (viewModel.winner) {
             0 -> "Tie"
-            else -> "player${viewModel.winner} won"
+            1 -> "Player1 won"
+            else -> "${viewModel.mode} won"
         }
-        Toast.makeText(requireActivity(), message, Toast.LENGTH_SHORT).show()
+        val bundle = Bundle()
+        bundle.putString("message", message)
+        findNavController().navigate(R.id.action_gamePlayFragment_to_gameEndFragment, bundle)
+    }
+
+    override fun onMove(row: Int, col: Int) {
+        viewModel.updateMatrix(row, col)
     }
 }

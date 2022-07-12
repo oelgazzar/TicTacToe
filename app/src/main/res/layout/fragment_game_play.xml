@@ -32,7 +32,7 @@
             android:id="@+id/player2_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{@string/player2_score_text(viewModel.p2Score)}"
+            android:text="@{@string/player2_score_text(viewModel.mode, viewModel.p2Score)}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginEnd="16dp"
@@ -46,7 +46,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:matrix="@{viewModel.matrix}"/>
 
         <Button
             android:id="@+id/reset_button"
