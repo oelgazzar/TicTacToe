@@ -8,7 +8,12 @@ import android.util.AttributeSet
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelStore
+import androidx.lifecycle.ViewModelStoreOwner
+import androidx.lifecycle.get
 import com.example.tictactoe.R
+import com.example.tictactoe.models.GameViewModel
 import kotlin.random.Random
 
 class BoardView(context: Context, attrSet: AttributeSet): AppCompatImageView(context, attrSet) {
@@ -24,12 +29,13 @@ class BoardView(context: Context, attrSet: AttributeSet): AppCompatImageView(con
     }
 
     private val paint = Paint()
+    private val viewModel = ViewModelProvider(context as ViewModelStoreOwner).get(GameViewModel::class.java)
 
     override fun onDraw(canvas: Canvas) {
         paint.strokeWidth = LINE_WIDTH
         paint.color = ContextCompat.getColor(context, R.color.gray)
         drawGrid(canvas)
-        drawMatrix(canvas, createRandomMatrix())
+        drawMatrix(canvas, viewModel.matrix)
     }
 
     private fun drawGrid(canvas: Canvas) {
@@ -88,14 +94,6 @@ class BoardView(context: Context, attrSet: AttributeSet): AppCompatImageView(con
                     y.toInt() + SIGN_HEIGHT)
                 signDrawable.draw(canvas)
             }
-        }
-    }
-
-    private fun createRandomMatrix(): Array<Array<String>> {
-        val random = Random(System.currentTimeMillis())
-        return Array(3) {
-           Array(3
-           ) { arrayListOf("o", "x", "")[random.nextInt(3)] }
         }
     }
 
