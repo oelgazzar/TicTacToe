@@ -4,7 +4,11 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.drawable.VectorDrawable
+import android.text.method.Touch
 import android.util.AttributeSet
+import android.view.MotionEvent
+import android.view.View
+import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.content.ContextCompat
@@ -16,7 +20,8 @@ import com.example.tictactoe.R
 import com.example.tictactoe.models.GameViewModel
 import kotlin.random.Random
 
-class BoardView(context: Context, attrSet: AttributeSet): AppCompatImageView(context, attrSet) {
+class BoardView(context: Context, attrSet: AttributeSet):
+    AppCompatImageView(context, attrSet), View.OnTouchListener {
     companion object {
         private const val SIGN_WIDTH = 100
         private const val SIGN_HEIGHT = SIGN_WIDTH
@@ -30,6 +35,10 @@ class BoardView(context: Context, attrSet: AttributeSet): AppCompatImageView(con
 
     private val paint = Paint()
     private val viewModel = ViewModelProvider(context as ViewModelStoreOwner).get(GameViewModel::class.java)
+
+    init {
+        setOnTouchListener(this)
+    }
 
     override fun onDraw(canvas: Canvas) {
         paint.strokeWidth = LINE_WIDTH
@@ -116,5 +125,27 @@ class BoardView(context: Context, attrSet: AttributeSet): AppCompatImageView(con
         }
 
         setMeasuredDimension(width.toInt(), height.toInt())
+    }
+
+    override fun onTouch(v: View, event: MotionEvent): Boolean {
+        if (event.action != MotionEvent.ACTION_DOWN) return false
+
+        val offsetX = (width - BOARD_WIDTH) / 2
+        val offsetY = (height - BOARD_HEIGHT) / 2
+        val x = event.x - offsetX
+        val y =  event.y - offsetY
+        var row = 0
+        var col = 0
+
+        if (x <= BOARD_WIDTH && y <= BOARD_HEIGHT) {
+            col = x.toInt() / CELL_WIDTH
+            row = y.toInt() / CELL_HEIGHT
+        }
+
+        Toast.makeText(context, "row: $row, col: $col", Toast.LENGTH_SHORT).show()
+        viewModel.updateMatrix(row, col)
+        invalidate()
+
+        return true
     }
 }
