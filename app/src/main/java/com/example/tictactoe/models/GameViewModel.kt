@@ -1,5 +1,6 @@
 package com.example.tictactoe.models
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import kotlin.random.Random
 
@@ -35,10 +36,18 @@ class GameViewModel: ViewModel() {
     fun updateMatrix(row: Int, col: Int) {
         if (matrix[row][col].isNotEmpty()) return
         matrix[row][col] = if (nextTurn == "p1") "o" else "x"
+        checkGameEnd()
         switchTurn()
+    }
+
+    private fun checkGameEnd(): Boolean {
+        matrix.forEach { it.forEach { if (it.isEmpty()) return false } }
+        Log.d("tictactoe", "game ended")
+        return true
     }
 
     private fun switchTurn() {
         nextTurn = if (nextTurn == "p1") "p2" else "p1"
     }
+
 }

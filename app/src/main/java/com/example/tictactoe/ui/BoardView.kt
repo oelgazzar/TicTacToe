@@ -142,7 +142,7 @@ class BoardView(context: Context, attrSet: AttributeSet):
             row = y.toInt() / CELL_HEIGHT
         }
 
-        Toast.makeText(context, "row: $row, col: $col", Toast.LENGTH_SHORT).show()
+//        Toast.makeText(context, "row: $row, col: $col", Toast.LENGTH_SHORT).show()
         viewModel.updateMatrix(row, col)
         invalidate()
 
