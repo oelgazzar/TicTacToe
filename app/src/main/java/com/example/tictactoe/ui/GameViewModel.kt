@@ -1,4 +1,4 @@
-package com.example.tictactoe.models
+package com.example.tictactoe.ui
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import kotlin.random.Random
 
-private const val TAG = "Tic Tac Toe [GameViewModel]"
+private const val TAG = "TicTacToe [GameViewModel]"
 
 class GameViewModel: ViewModel() {
     private var _p1Score = MutableLiveData(0)

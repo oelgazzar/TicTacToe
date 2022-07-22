@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import com.example.tictactoe.R
 import com.example.tictactoe.databinding.FragmentGameEndBinding
-import com.example.tictactoe.models.GameViewModel
+import com.example.tictactoe.ui.GameViewModel
 
 
 class GameEndFragment : Fragment() {

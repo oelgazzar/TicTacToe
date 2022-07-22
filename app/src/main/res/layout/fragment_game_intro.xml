@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -34,13 +33,16 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
             android:backgroundTint="@color/design_default_color_secondary"
+            android:alpha="0"
             android:text="Player vs Player"
             app:layout_constraintBottom_toTopOf="@+id/player_vs_ai_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/frameLayout"
-            app:layout_constraintVertical_chainStyle="packed" />
+            app:layout_constraintVertical_chainStyle="packed"
+            animator="@{@animator/fade_in}"
+            delay="@{Long.valueOf(1000)}"/>
 
         <Button
             android:id="@+id/player_vs_ai_button"
@@ -50,12 +52,15 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="32dp"
             android:backgroundTint="@color/design_default_color_secondary"
+            android:alpha="0"
             android:text="Play against AI"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/player_vs_player_button" />
+            app:layout_constraintTop_toBottomOf="@+id/player_vs_player_button"
+            animator="@{@animator/fade_in}"
+            delay="@{Long.valueOf(1000)}"/>
 
         <FrameLayout
             android:id="@+id/frameLayout"
@@ -68,23 +73,28 @@
 
 
             <ImageView
-                android:id="@+id/imageView3"
+                android:id="@+id/o_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:scaleX="0"
+                android:scaleY="0"
                 android:layout_gravity="center"
                 app:srcCompat="@drawable/ic_o"
                 tools:layout_editor_absoluteX="65dp"
-                tools:layout_editor_absoluteY="202dp" />
+                tools:layout_editor_absoluteY="202dp"
+                animator="@{@animator/scale_intro}"
+                delay="@{Long.valueOf(500)}"/>
 
             <ImageView
-                android:id="@+id/imageView4"
+                android:id="@+id/x_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="18dp"
                 android:layout_marginTop="18dp"
                 app:srcCompat="@drawable/ic_x"
                 tools:layout_editor_absoluteX="173dp"
-                tools:layout_editor_absoluteY="310dp" />
+                tools:layout_editor_absoluteY="310dp"
+                animator="@{@animator/scale_intro}" />
 
             <View
                 android:id="@+id/divider"
