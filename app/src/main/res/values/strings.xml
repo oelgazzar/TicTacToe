@@ -5,4 +5,6 @@
     <string name="reset_label">Reset</string>
     <string name="player1_score_text">Player1: %d</string>
     <string name="player2_score_text">%s: %d</string>
+    <string name="play_again_label">Play again</string>
+    <string name="quit_label">Quit</string>
 </resources>

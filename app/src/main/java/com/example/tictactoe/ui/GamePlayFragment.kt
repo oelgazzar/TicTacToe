@@ -24,9 +24,19 @@ class GamePlayFragment : Fragment(R.layout.fragment_game_play), BoardView.OnMove
         }
     }
 
+    override fun onStart() {
+        super.onStart()
+        viewModel.start()
+    }
+
     fun resetGame() {
         viewModel.reset()
         binding.boardView.invalidate()
+    }
+
+    fun quit() {
+        resetGame()
+        findNavController().navigate(R.id.action_gamePlayFragment_to_gameIntroFragment)
     }
 
     private fun onGameEnded() {

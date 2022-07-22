@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.example.tictactoe.R
 import com.example.tictactoe.databinding.FragmentGameEndBinding
 import com.example.tictactoe.ui.GameViewModel
@@ -28,6 +29,12 @@ class GameEndFragment : Fragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
         binding.winnerText.text = arguments?.getString("message")
-//        viewModel.reset()
+        binding.playAgainButton.setOnClickListener {
+            playAgain()
+        }
+    }
+
+    private fun playAgain() {
+        findNavController().navigate(R.id.action_gameEndFragment_to_gamePlayFragment)
     }
 }
