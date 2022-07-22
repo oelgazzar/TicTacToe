@@ -21,23 +21,27 @@
             android:id="@+id/player1_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{@string/player1_score_text(viewModel.p1Score)}"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            tools:text="Player1: 10"/>
+            android:text="@{@string/player1_score_text(viewModel.p1Score)}"
+            android:textSize="24sp"
+            android:textStyle="italic"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Player1: 10" />
 
         <TextView
             android:id="@+id/player2_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
             android:text="@{@string/player2_score_text(viewModel.mode, viewModel.p2Score)}"
+            android:textSize="24sp"
+            android:textStyle="italic"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginEnd="16dp"
-            android:layout_marginTop="16dp"
-            tools:text="Player2: 5"/>
+            tools:text="Player2: 5" />
 
         <com.example.tictactoe.ui.BoardView
             android:id="@+id/boardView"
@@ -47,18 +51,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:matrix="@{viewModel.matrix}"/>
-
-        <Button
-            android:id="@+id/reset_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/reset_label"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/boardView"
-            android:onClick="@{(view) -> gamePlayFragment.resetGame()}" />
+            app:matrix="@{viewModel.matrix}" />
 
         <ImageView
             android:id="@+id/imageView"
@@ -68,7 +61,7 @@
             app:layout_constraintEnd_toEndOf="@+id/player1_text"
             app:layout_constraintStart_toStartOf="@+id/player1_text"
             app:layout_constraintTop_toBottomOf="@+id/player1_text"
-            app:srcCompat="@drawable/ic_o_small" />
+            app:srcCompat="@drawable/ic_o" />
 
         <ImageView
             android:id="@+id/imageView2"
@@ -78,7 +71,36 @@
             app:layout_constraintEnd_toEndOf="@+id/player2_text"
             app:layout_constraintStart_toStartOf="@+id/player2_text"
             app:layout_constraintTop_toBottomOf="@+id/player2_text"
-            app:srcCompat="@drawable/ic_x_small" />
+            app:srcCompat="@drawable/ic_x" />
+
+        <Button
+            android:id="@+id/reset_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:onClick="@{(view) -> gamePlayFragment.resetGame()}"
+            android:text="@string/reset_label"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/quit_button"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            android:textColor="@color/design_default_color_secondary"
+            style="@style/Widget.Material3.Button.OutlinedButton"/>
+
+        <Button
+            android:id="@+id/quit_button"
+            style="@style/Widget.Material3.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="19dp"
+            android:text="@string/quit_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/reset_button"
+            app:layout_constraintTop_toTopOf="@+id/reset_button"
+            android:textColor="@color/design_default_color_secondary"
+            android:onClick="@{(view) -> gamePlayFragment.quit()}"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

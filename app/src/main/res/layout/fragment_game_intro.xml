@@ -25,42 +25,44 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+
         <Button
-            android:id="@+id/player_vs_player_button"
+            android:id="@+id/player_vs_ai_button"
+            animator="@{@animator/fade_in}"
+            delay="@{Long.valueOf(1000)}"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
-            android:backgroundTint="@color/design_default_color_secondary"
             android:alpha="0"
-            android:text="Player vs Player"
-            app:layout_constraintBottom_toTopOf="@+id/player_vs_ai_button"
+            android:backgroundTint="@color/design_default_color_secondary"
+            android:text="Play against AI"
+            app:layout_constraintBottom_toTopOf="@id/player_vs_player_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/frameLayout"
-            app:layout_constraintVertical_chainStyle="packed"
-            animator="@{@animator/fade_in}"
-            delay="@{Long.valueOf(1000)}"/>
+            app:layout_constraintVertical_chainStyle="packed" />
 
         <Button
-            android:id="@+id/player_vs_ai_button"
+            android:id="@+id/player_vs_player_button"
+            animator="@{@animator/fade_in}"
+            delay="@{Long.valueOf(1000)}"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginBottom="32dp"
-            android:backgroundTint="@color/design_default_color_secondary"
+            android:layout_marginBottom="16dp"
             android:alpha="0"
-            android:text="Play against AI"
+            android:backgroundTint="@color/design_default_color_secondary"
+            android:text="Player vs Player"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/player_vs_player_button"
-            animator="@{@animator/fade_in}"
-            delay="@{Long.valueOf(1000)}"/>
+            app:layout_constraintTop_toBottomOf="@+id/player_vs_ai_button"
+            app:layout_constraintVertical_chainStyle="packed" />
 
         <FrameLayout
             android:id="@+id/frameLayout"
@@ -74,27 +76,27 @@
 
             <ImageView
                 android:id="@+id/o_image"
+                animator="@{@animator/scale_intro}"
+                delay="@{Long.valueOf(500)}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:scaleX="0"
                 android:scaleY="0"
-                android:layout_gravity="center"
                 app:srcCompat="@drawable/ic_o"
                 tools:layout_editor_absoluteX="65dp"
-                tools:layout_editor_absoluteY="202dp"
-                animator="@{@animator/scale_intro}"
-                delay="@{Long.valueOf(500)}"/>
+                tools:layout_editor_absoluteY="202dp" />
 
             <ImageView
                 android:id="@+id/x_image"
+                animator="@{@animator/scale_intro}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="18dp"
                 android:layout_marginTop="18dp"
                 app:srcCompat="@drawable/ic_x"
                 tools:layout_editor_absoluteX="173dp"
-                tools:layout_editor_absoluteY="310dp"
-                animator="@{@animator/scale_intro}" />
+                tools:layout_editor_absoluteY="310dp" />
 
             <View
                 android:id="@+id/divider"

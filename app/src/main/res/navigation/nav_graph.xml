@@ -16,6 +16,11 @@
         <argument
             android:name="result_message"
             app:argType="string" />
+        <action
+            android:id="@+id/action_gamePlayFragment_to_gameIntroFragment"
+            app:destination="@id/gameIntroFragment"
+            app:popUpTo="@id/gamePlayFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/gameIntroFragment"
@@ -31,5 +36,11 @@
         android:id="@+id/gameEndFragment"
         android:name="com.example.tictactoe.ui.GameEndFragment"
         android:label="fragment_game_end"
-        tools:layout="@layout/fragment_game_end" />
+        tools:layout="@layout/fragment_game_end" >
+        <action
+            android:id="@+id/action_gameEndFragment_to_gamePlayFragment"
+            app:destination="@id/gamePlayFragment"
+            app:popUpTo="@id/gamePlayFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>

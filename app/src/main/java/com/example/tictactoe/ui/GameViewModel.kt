@@ -42,10 +42,16 @@ class GameViewModel: ViewModel() {
 
 
     init {
-        reset()
+        start()
     }
 
     fun reset() {
+        _p1Score.value = 0
+        _p2Score.value = 0
+        start()
+    }
+
+    fun start() {
         _matrix.value = createEmptyMatrix()
         nextTurn = "p1"
         _winner = 0
