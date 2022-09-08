@@ -40,6 +40,11 @@ class GamePlayFragment : Fragment(R.layout.fragment_game_play), BoardView.OnMove
         _effectsPlayer = null
     }
 
+    override fun onStart() {
+        super.onStart()
+        viewModel.start()
+    }
+
     fun resetGame() {
         viewModel.reset()
         binding.boardView.invalidate()
